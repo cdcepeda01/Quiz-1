@@ -1,0 +1,30 @@
+*{
+    margin: auto;
+    padding: auto;
+}
+
+.contenedor{
+    background-color: #44b486;
+    padding: 20px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.contenedor input{
+    width: 100%;
+    padding: 10px;
+    border: 1px #353535;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+.table ,th, td{
+    border: 2px solid black;
+    height: 50px;
+
+}
+#guardar{
+    background-color: #a1ff09;
+    size: 100%;
+}
