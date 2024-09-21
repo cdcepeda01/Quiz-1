@@ -1,84 +1,76 @@
 
+var registro = document.getElementById('estudianteFormulario')
+registro.addEventListener('submit', function(event){
+    event.preventDefault();
 
-const codigo = document.getElementById('Codigo');
-const nombre = document.getElementById('nombre');
-const nota1 = document.getElementById('nota1');
-const nota2 = document.getElementById('nota2');
-const nota3 = document.getElementById('nota3');
-const nota4 = document.getElementById('nota4');
-const error = document.getElementById('error');
-const estudianteForm = document.forms["estudianteForm"];
+    const codigo = document.getElementById('codigo').value;
+    const nombre = document.getElementById('nombre').value;
+    const nota1 = parseFloat(document.getElementById('nota1').value);
+    const nota2 = parseFloat(document.getElementById('nota2').value);
+    const nota3 = parseFloat(document.getElementById('nota3').value);
+    const nota4 = parseFloat(document.getElementById('nota4').value);
 
-const validarNota = (nota1, nota2, nota3, nota4) => {
-    nombreErrorMsg.textContent = "";
-    if (nombre.length > 10) {
-      nombreErrorMsg.textContent = "La nota es superior a 5";
-      return false;
+    const definitiva=(nota1 * 0.2) + (nota2 * 0.2) + (nota3 * 0.2) + (nota4 * 0.4);
+
+    if(definitiva>=3.0){
+        var estado= 'Aprobó';
+    }else{
+        var estado='Reprobó';
     }
-    return true;
-  };
 
-const cargarEstudiante = (estudiante)=>{
-    const row = document.createElement('tr');
+    const tabla = document.getElementById('estudiantes').getElementsByTagName('tbody')[0];
+    const nuevaFila = document.createElement('tr');
 
     const codigoCeld = document.createElement('td');
-    codigoCeld.textContent= estudiante.codigo;
+    codigoCeld.textContent = codigo;
 
     const nombreCeld = document.createElement('td');
-    nombreCeld.textContent= estudiante.nombre;
-    
+    nombreCeld.textContent = nombre;
+
     const nota1Celd = document.createElement('td');
-    nota1Celd.textContent= estudiante.nota1;
-    
+    nota1Celd.textContent = nota1.toFixed(1);
+
     const nota2Celd = document.createElement('td');
-    nota2Celd.textContent= estudiante.nota2;
+    nota2Celd.textContent = nota2.toFixed(1);
 
     const nota3Celd = document.createElement('td');
-    nota3Celd.textContent= estudiante.nota3;
+    nota3Celd.textContent = nota3.toFixed(1);
 
     const nota4Celd = document.createElement('td');
-    nota4Celd.textContent= estudiante.nota4;
+    nota4Celd.textContent = nota4.toFixed(1);
 
-    const btnCeld= document.createElement('td');
-    const eleminiarBtn = document.createElement('button');
-    eliminarBtn.textContent = 'Borrar';
+    const definitivaCeld = document.createElement('td');
+    definitivaCeld.textContent= definitiva.toFixed(1);
 
-    eliminarBtn.addEventListener('click',()=>{
-        row.remove();
+    const estadoCeld = document.createElement('td');
+    estadoCeld.textContent= estado;
+
+    const EliminarCeld = document.createElement('td');
+    const botonEliminar = document.createElement('button');
+    botonEliminar.textContent='Eliminar';
+    botonEliminar.classList.add('eliminar-btn');
+
+    botonEliminar.addEventListener('click', function(){
+        var model = confirm('¿Desea eliminar este estudiante?');
+        if(model){
+            nuevaFila.remove();
+        }
     });
-    btnCeld.appendChild(eliminarBtn);
 
-    row.appendChild(codigoCeld);
-    row.appendChild(nombreCeld);
-    row.appendChild(nota1Celd);
-    row.appendChild(nota2Celd);
-    row.appendChild(nota3Celd);
-    row.appendChild(nota4Celd);
+    EliminarCeld.appendChild(botonEliminar);
 
-    const tbody = listaEstudiantes.getElementsByTagName('tbody')[0];
-    tbody.appendChild(row)
+    nuevaFila.appendChild(EliminarCeld);
+    nuevaFila.appendChild(codigoCeld);
+    nuevaFila.appendChild(nombreCeld);
+    nuevaFila.appendChild(nota1Celd);
+    nuevaFila.appendChild(nota2Celd);
+    nuevaFila.appendChild(nota3Celd);
+    nuevaFila.appendChild(nota4Celd);
+    nuevaFila.appendChild(definitivaCeld);
+    nuevaFila.appendChild(estadoCeld);
 
-}
-form.addEventListener('Submit', (e) => {
-    e.preventDefault();
-    const codigo = codigo.value;
-    const nombre = nombre.value;
-    const nota1 = nota1.value;
-    const nota2 = nota2.value;
-    const nota3 = nota3.value;
-    const nota4 = nota4.value;
+    tabla.appendChild(nuevaFila);
 
-    const estudiante ={
-        codigo: codigo.value,
-        nombre: estudianteForm['nombre'].value,
-        nota1: estudianteForm['nota1'].value,
-        nota2: estudianteForm['nota2'].value,
-        nota3: estudianteForm['nota3'].value,
-        nota4: estudianteForm['nota4'].value,
+    registro.reset();
 
-
-    };
-    cargarEstudiante(estudiante);
-    estudianteForm.reset();
-
-})
+});
