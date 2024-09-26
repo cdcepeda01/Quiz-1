@@ -1,5 +1,5 @@
 
-var registro = document.getElementById('estudianteFormulario')
+var registro = document.getElementById('estudianteFormulario');
 registro.addEventListener('submit', function(event){
     event.preventDefault();
 
@@ -10,12 +10,18 @@ registro.addEventListener('submit', function(event){
     const nota3 = parseFloat(document.getElementById('nota3').value);
     const nota4 = parseFloat(document.getElementById('nota4').value);
 
-    const definitiva=(nota1 * 0.2) + (nota2 * 0.2) + (nota3 * 0.2) + (nota4 * 0.4);
+    const definitiva = (nota1 * 0.2) + (nota2 * 0.2) + (nota3 * 0.2) + (nota4 * 0.4);
 
-    if(definitiva>=3.0){
-        var estado= 'Aprobó';
-    }else{
-        var estado='Reprobó';
+    let estado, color, emoticono;
+
+    if (definitiva >= 3.0) {
+        estado = 'Aprobó';
+        color = '#a5d6a7'; 
+        emoticono = '⭐'; 
+    } else {
+        estado = 'Reprobó';
+        color = '#ef9a9a'; 
+        emoticono = '😢'; 
     }
 
     const tabla = document.getElementById('estudiantes').getElementsByTagName('tbody')[0];
@@ -40,19 +46,20 @@ registro.addEventListener('submit', function(event){
     nota4Celd.textContent = nota4.toFixed(1);
 
     const definitivaCeld = document.createElement('td');
-    definitivaCeld.textContent= definitiva.toFixed(1);
+    definitivaCeld.textContent = definitiva.toFixed(1);
 
     const estadoCeld = document.createElement('td');
-    estadoCeld.textContent= estado;
+    estadoCeld.textContent = `${estado} ${emoticono}`; 
+    estadoCeld.style.backgroundColor = color; 
 
     const EliminarCeld = document.createElement('td');
     const botonEliminar = document.createElement('button');
-    botonEliminar.textContent='Eliminar';
+    botonEliminar.textContent = 'Eliminar';
     botonEliminar.classList.add('eliminar-btn');
 
     botonEliminar.addEventListener('click', function(){
         var model = confirm('¿Desea eliminar este estudiante?');
-        if(model){
+        if (model) {
             nuevaFila.remove();
         }
     });
@@ -72,5 +79,4 @@ registro.addEventListener('submit', function(event){
     tabla.appendChild(nuevaFila);
 
     registro.reset();
-
 });
