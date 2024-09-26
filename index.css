@@ -3,7 +3,7 @@ body{
     margin: 20px;
     padding: 0;
     background-color:#e1bee7; 
-    transition: background-color 0.3s ease;
+
 }
 .main-container {
     display: flex;
@@ -71,9 +71,7 @@ form{
     animation: fadeIn 0.5s forwards; 
     animation-delay: 0.8s; 
 }
-form:hover {
-    transform: scale(1.02);
-}
+
 label {
     display: block;
     margin: 10px 0 5px;
@@ -156,7 +154,7 @@ th {
     animation-delay: 1.6s; 
 }
 #estudiantesContenedor:hover {
-    transform: scale(1.05);
+   
     cursor: pointer;
 }
 #registro{
